@@ -1,0 +1,28 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "mag.424@gmail.com",
+    "longName": "GraphFace",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "fonts/FORCED SQUARE.ttf",
+                "name": "FONT_FORCED_SQUARE_10",
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "GraphFace",
+    "targetPlatforms": [
+        "basalt"
+    ],
+    "uuid": "46b412a1-c4f2-4011-a662-551522bad283",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
