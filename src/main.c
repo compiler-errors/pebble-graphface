@@ -5,16 +5,16 @@
 #define BG_COLOR GColorBlack
 #define TIME_COLOR GColorRed
 
-Window *my_window;
-Layer *graph_layer;
-TextLayer *hour_number_layer[13], *minute_number_layer[13];
+Window* my_window;
+Layer* graph_layer;
+TextLayer* hour_number_layer[13], * minute_number_layer[13];
 uint8_t hours, minutes;
 GFont s_time_font;
 char hour_strings[13][3] = {" 0", "  ", " 2", "  ", " 4", "  ", " 6", "  ", " 8", "  ", "10", "  ", "12"};
 char minute_strings[13][3] = {" 0", "  ", "10", "  ", "20", "  ", "30", "  ", "40", "  ", "50", "  ", "60"};
 
-void updateGraph(struct Layer *layer, GContext *ctx);
-void tick_handler(struct tm *tick_time, TimeUnits units_changed);
+void update_graph(struct Layer* layer, GContext* ctx);
+void tick_handler(struct tm* tick_time, TimeUnits units_changed);
 
 const char* get_string_for_hour(int i) {
   return hour_strings[i];
@@ -27,7 +27,7 @@ const char* get_string_for_minute(int i) {
 void handle_init(void) {
   my_window = window_create();
   graph_layer = layer_create(FULL_SCREEN);
-  layer_set_update_proc(graph_layer, updateGraph);
+  layer_set_update_proc(graph_layer, update_graph);
   
   s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_FORCED_SQUARE_10));
   
@@ -61,11 +61,11 @@ void handle_init(void) {
     text_layer_set_text(minute_number_layer[i], get_string_for_minute(i));
   
   time_t temp = time(0);
-  struct tm *tick_time = localtime(&temp);
+  struct tm* tick_time = localtime(&temp);
   tick_handler(tick_time, SECOND_UNIT);
 }
 
-void updateGraph(struct Layer *layer, GContext *ctx) {
+void update_graph(struct Layer* layer, GContext* ctx) {
   graphics_context_set_fill_color(ctx, BG_COLOR);
   graphics_fill_rect(ctx, FULL_SCREEN, 0, GCornerNone);
   
@@ -85,8 +85,8 @@ void updateGraph(struct Layer *layer, GContext *ctx) {
   graphics_draw_rect(ctx, GRect(9, 21, 126, 126));
 }
 
-void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-  hours = (tick_time->tm_hour) % 12;
+void tick_handler(struct tm* tick_time, TimeUnits units_changed) {
+  hours = tick_time->tm_hour % 12;
   minutes = tick_time->tm_min;
   layer_mark_dirty(graph_layer);
 }
